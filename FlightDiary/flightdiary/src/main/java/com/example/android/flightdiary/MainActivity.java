@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -29,12 +30,22 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
     private ImageView mImageView;
     public String mCurrentPhotoPath;
+    private TextView showData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mImageView = (ImageView) findViewById(R.id.imageViewID);
+
+        showData = (TextView) findViewById(R.id.dataShowText);
+
+        Intent intentThatStartThis = getIntent();
+
+        if(intentThatStartThis.hasExtra(Intent.EXTRA_TEXT)) {
+            String textEntered = intentThatStartThis.getStringExtra(Intent.EXTRA_TEXT);
+            showData.setText(textEntered);
+        }
 
     }
 

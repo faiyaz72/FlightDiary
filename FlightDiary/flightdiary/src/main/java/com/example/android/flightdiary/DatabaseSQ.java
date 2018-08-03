@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.Cursor;
 
 /**
  * Created by FaiyazHuq on 2018-08-02.
@@ -86,5 +87,24 @@ public class DatabaseSQ extends SQLiteOpenHelper {
         return db.delete(DATABASE_NAME,
                 FLIGHT_COLUMN_ID + " = ? ",
                 new String[] { Integer.toString(id) });
+    }
+
+    public String databaseToString() {
+
+        String dbString = "";
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + DATABASE_NAME + " WHERE 1";
+
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+
+        while(!c.isAfterLast()) {
+            if(c.getString(c.getColumnIndex("number")) != null) {
+                dbString += c.getString(c.getColumnIndex("number"));
+                dbString += "\n";
+            }
+        }
+        db.close();
+        return dbString;
     }
 }

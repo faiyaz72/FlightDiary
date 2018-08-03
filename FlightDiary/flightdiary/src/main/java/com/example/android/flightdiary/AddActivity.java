@@ -43,6 +43,7 @@ public class AddActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private String mCurrentPhotoPath;
+    private DatabaseSQ dbHandler;
 
 
     @Override
@@ -65,6 +66,8 @@ public class AddActivity extends AppCompatActivity {
         image = (Button) findViewById(R.id.ImageButton);
 
         imageView = (ImageView) findViewById(R.id.imageView);
+
+        dbHandler = new DatabaseSQ(this);
 
     }
 
@@ -163,6 +166,11 @@ public class AddActivity extends AppCompatActivity {
 
 
         Flight newFlight = new Flight(name, date, reg, airline, type, mCurrentPhotoPath);
+
+        dbHandler.insertFlight(newFlight);
+
+        String data = dbHandler.databaseToString();
+        goBackToMain.putExtra(Intent.EXTRA_TEXT, data);
 
         startActivity(goBackToMain);
     }

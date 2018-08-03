@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FlightDiary.iml" filepath="$PROJECT_DIR$/FlightDiary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FlightDiary.iml" filepath="$PROJECT_DIR$/FlightDiary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flightdiary/flightdiary.iml" filepath="$PROJECT_DIR$/flightdiary/flightdiary.iml" />
       <module fileurl="file://$PROJECT_DIR$/flightdiary/flightdiary.iml" filepath="$PROJECT_DIR$/flightdiary/flightdiary.iml" />
     </modules>
   </component>

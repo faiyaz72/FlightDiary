@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Something will be here"
+            android:id="@+id/dataShowText"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <ImageView
