@@ -13,6 +13,7 @@ import android.database.Cursor;
 public class DatabaseSQ extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "FlightDatabase.db";
+    public static final String TABLE_FLIGHTS = "flights";
     private static final int DATABASE_VERSION = 1;
     public static final String FLIGHT_COLUMN_ID = "_id";
     public static final String FLIGHT_NUMBER = "number";
@@ -30,7 +31,7 @@ public class DatabaseSQ extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + DATABASE_NAME + "(" +
+        db.execSQL("CREATE TABLE " + TABLE_FLIGHTS + "(" +
             FLIGHT_COLUMN_ID + "INTEGER PRIMARY KEY, " +
                 FLIGHT_NUMBER + " TEXT, " +
                 FLIGHT_DATE + " TEXT, " +
@@ -45,15 +46,15 @@ public class DatabaseSQ extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FLIGHTS);
         onCreate(db);
     }
 
-    public boolean insertFlight(Flight toADD) {
+    public void insertFlight(Flight toADD) {
 
-        SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        contentValues.put(FLIGHT_COLUMN_ID, toADD.getId());
         contentValues.put(FLIGHT_NUMBER, toADD.getFlightNumber());
         contentValues.put(FLIGHT_DATE, toADD.getDate());
         contentValues.put(FLIGHT_REG, toADD.getReg());
@@ -61,9 +62,13 @@ public class DatabaseSQ extends SQLiteOpenHelper {
         contentValues.put(FLIGHT_TYPE, toADD.getType());
         contentValues.put(FLIGHT_IMAGE_PATH, toADD.getImagePath());
 
-        db.insert(DATABASE_NAME, null, contentValues);
+        SQLiteDatabase db = getWritableDatabase();
+
+
+
+
+        db.insert(TABLE_FLIGHTS, null, contentValues);
         db.close();
-        return true;
 
     }
 
@@ -93,14 +98,14 @@ public class DatabaseSQ extends SQLiteOpenHelper {
 
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + DATABASE_NAME + " WHERE 1";
+        String query = "SELECT * FROM " + TABLE_FLIGHTS + " WHERE 1";
 
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
 
         while(!c.isAfterLast()) {
-            if(c.getString(c.getColumnIndex("number")) != null) {
-                dbString += c.getString(c.getColumnIndex("number"));
+            if(c.getString(c.getColumnIndex(FLIGHT_NUMBER)) != null) {
+                dbString += c.getString(c.getColumnIndex(FLIGHT_NUMBER));
                 dbString += "\n";
             }
         }
