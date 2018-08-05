@@ -9,45 +9,65 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.flightdiary.AddActivity">
 
+
     <EditText
         android:id="@+id/regText"
+        android:textAllCaps="true"
+        android:hint="Registration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/AddButton"
         android:layout_alignEnd="@+id/typeText"
+        android:layout_alignLeft="@+id/typeText"
         android:layout_alignRight="@+id/typeText"
-        android:layout_toEndOf="@+id/textView5"
-        android:layout_toRightOf="@+id/textView5" />
+        android:layout_alignStart="@+id/typeText"
+        android:layout_below="@+id/typeText"
+        android:layout_marginTop="24dp" />
 
     <EditText
         android:id="@+id/typeText"
+        android:hint="Type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_alignEnd="@+id/airlineText"
-        android:layout_alignLeft="@+id/airlineText"
-        android:layout_alignRight="@+id/airlineText"
-        android:layout_alignStart="@+id/airlineText" />
-
-    <EditText
-        android:id="@+id/airlineText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignLeft="@+id/nameText"
-        android:layout_alignStart="@+id/nameText"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView" />
+        android:layout_alignEnd="@+id/dateText"
+        android:layout_alignLeft="@+id/dateText"
+        android:layout_alignRight="@+id/dateText"
+        android:layout_alignStart="@+id/dateText"
+        android:layout_below="@+id/dateText"
+        android:layout_marginTop="23dp" />
 
     <EditText
         android:id="@+id/dateText"
+        android:hint="Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignEnd="@+id/airlineText"
         android:layout_alignLeft="@+id/airlineText"
+        android:layout_alignRight="@+id/airlineText"
         android:layout_alignStart="@+id/airlineText"
+        android:layout_below="@+id/ImageButton"
+        android:layout_marginTop="13dp" />
+
+    <EditText
+        android:id="@+id/airlineText"
+        android:hint="Airline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nameText"
+        android:layout_alignStart="@+id/nameText"
+        android:layout_below="@+id/imageView"
+        android:layout_toLeftOf="@+id/ImageButton"
+        android:layout_toStartOf="@+id/ImageButton" />
+
+
+    <EditText
+        android:textAllCaps="true"
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
         android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView" />
+        android:layout_toStartOf="@+id/imageView"
+        android:hint="Flight Number" />
 
     <TextView
         android:id="@+id/name"
@@ -56,55 +76,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
-        android:text="Flight Number"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:text="Flight Details"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/name"
-        android:layout_alignStart="@+id/name"
-        android:layout_below="@+id/name"
-        android:layout_marginTop="29dp"
-        android:text="Date"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="30dp"
-        android:text="Airline"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="32dp"
-        android:text="Type"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="37dp"
-        android:text="Registration"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -130,27 +107,5 @@
 
         />
 
-    <Button
-        android:id="@+id/AddButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/ImageButton"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignRight="@+id/ImageButton"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_below="@+id/textView5"
-        android:layout_marginTop="64dp"
-        android:text="Add Flight"
-        android:onClick="AddFlight"
-        />
 
-    <EditText
-        android:id="@+id/nameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/name"
-        android:layout_toEndOf="@+id/name"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toRightOf="@+id/name"
-        android:layout_toStartOf="@+id/imageView" />
 </RelativeLayout>

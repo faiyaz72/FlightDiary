@@ -20,6 +20,8 @@
             android:layout_height="wrap_content"
             android:text="Something will be here"
             android:id="@+id/dataShowText"
+            android:paddingLeft="16dp"
+            android:layout_marginTop="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <ImageView
@@ -30,6 +32,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:layout_marginTop="16dp"
             android:text="Take photo"
             android:onClick="imageButton"
             />

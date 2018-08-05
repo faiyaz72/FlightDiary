@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +13,10 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +51,7 @@ public class AddActivity extends AppCompatActivity {
 
     private EditText regText;
 
-    private Button add;
+    //private Button add;
 
     private Button image;
 
@@ -58,6 +61,8 @@ public class AddActivity extends AppCompatActivity {
     private TextView showData;
 
     private SQLiteDatabase db;
+
+    private MenuView.ItemView done;
 
 
     @Override
@@ -75,7 +80,7 @@ public class AddActivity extends AppCompatActivity {
 
         regText = (EditText) findViewById(R.id.regText);
 
-        add = (Button) findViewById(R.id.AddButton);
+        //add = (Button) findViewById(R.id.AddButton);
 
         image = (Button) findViewById(R.id.ImageButton);
 
@@ -84,6 +89,7 @@ public class AddActivity extends AppCompatActivity {
         dbHandler = new DatabaseSQ(this);
 
         showData = (TextView) findViewById(R.id.dataShowText);
+
 
 
 
@@ -103,6 +109,15 @@ public class AddActivity extends AppCompatActivity {
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_menu, menu);
+
+        return true;
     }
 
 
@@ -168,27 +183,6 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    public void AddFlight(View view) {
-
-        String name = nameText.getText().toString().trim();
-        String date = dateText.getText().toString().trim();
-        String airline = airlineText.getText().toString().trim();
-        String type = typeText.getText().toString().trim();
-        String reg = regText.getText().toString().trim();
-
-
-        Context context = this;
-        Class destination = MainActivity.class;
-
-        Intent goBackToMain = new Intent(context, destination);
-
-
-        //Flight newFlight = new Flight(name, date, reg, airline, type, mCurrentPhotoPath);
-
-        insertFlight(new Flight(name, date, reg, airline, type, mCurrentPhotoPath));
-        startActivity(goBackToMain);
-
-    }
 
     private void insertFlight(Flight toADD) {
 
@@ -213,4 +207,25 @@ public class AddActivity extends AppCompatActivity {
     }
 
 
+    public void AddFlight(MenuItem item) {
+
+        String name = nameText.getText().toString().trim();
+        String date = dateText.getText().toString().trim();
+        String airline = airlineText.getText().toString().trim();
+        String type = typeText.getText().toString().trim();
+        String reg = regText.getText().toString().trim();
+
+
+        Context context = this;
+        Class destination = MainActivity.class;
+
+        Intent goBackToMain = new Intent(context, destination);
+
+
+        //Flight newFlight = new Flight(name, date, reg, airline, type, mCurrentPhotoPath);
+
+        insertFlight(new Flight(name, date, reg, airline, type, mCurrentPhotoPath));
+        startActivity(goBackToMain);
+
+    }
 }
