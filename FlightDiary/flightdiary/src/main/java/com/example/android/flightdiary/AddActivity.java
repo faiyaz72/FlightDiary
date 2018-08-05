@@ -1,8 +1,11 @@
 package com.example.android.flightdiary;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -23,6 +26,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_AIRLINE;
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_COLUMN_ID;
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_DATE;
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_IMAGE_PATH;
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_NUMBER;
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_REG;
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_TYPE;
+import static com.example.android.flightdiary.DatabaseSQ.TABLE_FLIGHTS;
 import static com.example.android.flightdiary.MainActivity.REQUEST_TAKE_PHOTO;
 
 public class AddActivity extends AppCompatActivity {
@@ -44,6 +55,9 @@ public class AddActivity extends AppCompatActivity {
     private ImageView imageView;
     private String mCurrentPhotoPath;
     private DatabaseSQ dbHandler;
+    private TextView showData;
+
+    private SQLiteDatabase db;
 
 
     @Override
@@ -68,6 +82,10 @@ public class AddActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView);
 
         dbHandler = new DatabaseSQ(this);
+
+        showData = (TextView) findViewById(R.id.dataShowText);
+
+
 
     }
 
@@ -146,17 +164,17 @@ public class AddActivity extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         imageView.setImageBitmap(bitmap);
 
-        add.setVisibility(View.VISIBLE);
+        //add.setVisibility(View.VISIBLE);
 
     }
 
     public void AddFlight(View view) {
 
-        String name = nameText.getText().toString();
-        String date = dateText.getText().toString();
-        String airline = airlineText.getText().toString();
-        String type = typeText.getText().toString();
-        String reg = regText.getText().toString();
+        String name = nameText.getText().toString().trim();
+        String date = dateText.getText().toString().trim();
+        String airline = airlineText.getText().toString().trim();
+        String type = typeText.getText().toString().trim();
+        String reg = regText.getText().toString().trim();
 
 
         Context context = this;
@@ -165,13 +183,34 @@ public class AddActivity extends AppCompatActivity {
         Intent goBackToMain = new Intent(context, destination);
 
 
-        Flight newFlight = new Flight(name, date, reg, airline, type, mCurrentPhotoPath);
+        //Flight newFlight = new Flight(name, date, reg, airline, type, mCurrentPhotoPath);
 
-        dbHandler.insertFlight(newFlight);
-
-        String data = dbHandler.databaseToString();
-        goBackToMain.putExtra(Intent.EXTRA_TEXT, data);
-
+        insertFlight(new Flight(name, date, reg, airline, type, mCurrentPhotoPath));
         startActivity(goBackToMain);
+
     }
+
+    private void insertFlight(Flight toADD) {
+
+        dbHandler = new DatabaseSQ(this);
+
+        db = dbHandler.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(FLIGHT_COLUMN_ID, toADD.getId());
+        contentValues.put(FLIGHT_NUMBER, toADD.getFlightNumber());
+        contentValues.put(FLIGHT_DATE, toADD.getDate());
+        contentValues.put(FLIGHT_REG, toADD.getReg());
+        contentValues.put(FLIGHT_AIRLINE, toADD.getAirline());
+        contentValues.put(FLIGHT_TYPE, toADD.getType());
+        contentValues.put(FLIGHT_IMAGE_PATH, toADD.getImagePath());
+
+
+        db.insert(TABLE_FLIGHTS, null, contentValues);
+
+
+    }
+
+
 }

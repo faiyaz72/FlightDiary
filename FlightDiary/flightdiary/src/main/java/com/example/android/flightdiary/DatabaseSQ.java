@@ -22,6 +22,7 @@ public class DatabaseSQ extends SQLiteOpenHelper {
     public static final String FLIGHT_AIRLINE = "airline";
     public static final String FLIGHT_TYPE = "type";
     public static final String FLIGHT_IMAGE_PATH = "image";
+    public static final String ID = "id";
 
     public DatabaseSQ(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -31,46 +32,49 @@ public class DatabaseSQ extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + TABLE_FLIGHTS + "(" +
-            FLIGHT_COLUMN_ID + "INTEGER PRIMARY KEY, " +
+        String query = "CREATE TABLE " + TABLE_FLIGHTS + "(" +
+                ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            FLIGHT_COLUMN_ID + " INTEGER, " +
                 FLIGHT_NUMBER + " TEXT, " +
                 FLIGHT_DATE + " TEXT, " +
                 FLIGHT_REG + " TEXT, " +
                 FLIGHT_AIRLINE + " TEXT, " +
                 FLIGHT_TYPE + " TEXT, " +
-                FLIGHT_IMAGE_PATH + " TEXT)"
+                FLIGHT_IMAGE_PATH + " TEXT " +
+                ");";
 
-        );
+        db.execSQL(query);
+
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FLIGHTS);
+        db.execSQL("DROP TABLE " + TABLE_FLIGHTS);
         onCreate(db);
     }
 
-    public void insertFlight(Flight toADD) {
-
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(FLIGHT_COLUMN_ID, toADD.getId());
-        contentValues.put(FLIGHT_NUMBER, toADD.getFlightNumber());
-        contentValues.put(FLIGHT_DATE, toADD.getDate());
-        contentValues.put(FLIGHT_REG, toADD.getReg());
-        contentValues.put(FLIGHT_AIRLINE, toADD.getAirline());
-        contentValues.put(FLIGHT_TYPE, toADD.getType());
-        contentValues.put(FLIGHT_IMAGE_PATH, toADD.getImagePath());
-
-        SQLiteDatabase db = getWritableDatabase();
-
-
-
-
-        db.insert(TABLE_FLIGHTS, null, contentValues);
-        db.close();
-
-    }
+//    public void insertFlight(Flight toADD) {
+//
+//        ContentValues contentValues = new ContentValues();
+//
+//        contentValues.put(FLIGHT_COLUMN_ID, toADD.getId());
+//        contentValues.put(FLIGHT_NUMBER, toADD.getFlightNumber());
+//        contentValues.put(FLIGHT_DATE, toADD.getDate());
+//        contentValues.put(FLIGHT_REG, toADD.getReg());
+//        contentValues.put(FLIGHT_AIRLINE, toADD.getAirline());
+//        contentValues.put(FLIGHT_TYPE, toADD.getType());
+//        contentValues.put(FLIGHT_IMAGE_PATH, toADD.getImagePath());
+//
+//        SQLiteDatabase db = getWritableDatabase();
+//
+//
+//
+//
+//        db.insert(TABLE_FLIGHTS, null, contentValues);
+//        db.close();
+//
+//    }
 
     public boolean updatePerson(Flight toADD) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -94,22 +98,24 @@ public class DatabaseSQ extends SQLiteOpenHelper {
                 new String[] { Integer.toString(id) });
     }
 
-    public String databaseToString() {
-
-        String dbString = "";
-        SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_FLIGHTS + " WHERE 1";
-
-        Cursor c = db.rawQuery(query, null);
-        c.moveToFirst();
-
-        while(!c.isAfterLast()) {
-            if(c.getString(c.getColumnIndex(FLIGHT_NUMBER)) != null) {
-                dbString += c.getString(c.getColumnIndex(FLIGHT_NUMBER));
-                dbString += "\n";
-            }
-        }
-        db.close();
-        return dbString;
-    }
+//    public String databaseToString() {
+//
+//        String dbString = "";
+//        SQLiteDatabase db = getReadableDatabase();
+//        String query = "SELECT * FROM " + TABLE_FLIGHTS + ";";
+//        Cursor c = db.rawQuery(query, null);
+//
+//        //db.query(TABLE_FLIGHTS, null,null,null,null,null,null);
+//        c.moveToFirst();
+//
+//        while(!c.isAfterLast()) {
+//            if(c.getString(c.getColumnIndex(FLIGHT_NUMBER)) != null) {
+//                dbString += c.getString(c.getColumnIndex(FLIGHT_NUMBER));
+//                dbString += "\n";
+//            }
+//            c.moveToNext();
+//        }
+//        db.close();
+//        return dbString;
+//    }
 }

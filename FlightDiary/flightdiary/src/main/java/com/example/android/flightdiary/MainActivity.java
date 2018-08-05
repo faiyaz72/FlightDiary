@@ -3,6 +3,8 @@ package com.example.android.flightdiary;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -24,6 +26,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_NUMBER;
+import static com.example.android.flightdiary.DatabaseSQ.TABLE_FLIGHTS;
+
 public class MainActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 0;
@@ -31,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mImageView;
     public String mCurrentPhotoPath;
     private TextView showData;
+
+    DatabaseSQ dbHandler;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +48,15 @@ public class MainActivity extends AppCompatActivity {
 
         showData = (TextView) findViewById(R.id.dataShowText);
 
-        Intent intentThatStartThis = getIntent();
+        dbHandler = new DatabaseSQ(this);
 
-        if(intentThatStartThis.hasExtra(Intent.EXTRA_TEXT)) {
-            String textEntered = intentThatStartThis.getStringExtra(Intent.EXTRA_TEXT);
-            showData.setText(textEntered);
-        }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        showData.setText(databaseToString());
     }
 
     @Override
@@ -148,5 +158,25 @@ public class MainActivity extends AppCompatActivity {
 
         }
         return true;
+    }
+
+    private String databaseToString() {
+
+        String dbString = "";
+        db = dbHandler.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_FLIGHTS + ";";
+        Cursor c = db.rawQuery(query, null);
+
+        //db.query(TABLE_FLIGHTS, null,null,null,null,null,null);
+        c.moveToFirst();
+
+        while(!c.isAfterLast()) {
+            if(c.getString(c.getColumnIndex(FLIGHT_NUMBER)) != null) {
+                dbString += c.getString(c.getColumnIndex(FLIGHT_NUMBER));
+                dbString += "\n";
+            }
+            c.moveToNext();
+        }
+        return dbString;
     }
 }
