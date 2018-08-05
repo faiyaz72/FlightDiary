@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.android.flightdiary.AddActivity">
+
+    <item
+        android:icon="@drawable/ic_done"
+        app:showAsAction="ifRoom"
+        android:id="@+id/doneImage"
+        android:title="Image Add" />
+
+
+
+</menu>

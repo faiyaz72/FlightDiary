@@ -12,8 +12,6 @@
 
     <EditText
         android:id="@+id/regText"
-        android:textAllCaps="true"
-        android:hint="Registration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/typeText"
@@ -21,11 +19,11 @@
         android:layout_alignRight="@+id/typeText"
         android:layout_alignStart="@+id/typeText"
         android:layout_below="@+id/typeText"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="21dp"
+        android:hint="Registration" />
 
     <EditText
         android:id="@+id/typeText"
-        android:hint="Type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/dateText"
@@ -33,40 +31,44 @@
         android:layout_alignRight="@+id/dateText"
         android:layout_alignStart="@+id/dateText"
         android:layout_below="@+id/dateText"
-        android:layout_marginTop="23dp" />
+        android:layout_marginTop="23dp"
+        android:hint="Type" />
 
     <EditText
         android:id="@+id/dateText"
-        android:hint="Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/airlineText"
         android:layout_alignLeft="@+id/airlineText"
         android:layout_alignRight="@+id/airlineText"
         android:layout_alignStart="@+id/airlineText"
-        android:layout_below="@+id/ImageButton"
-        android:layout_marginTop="13dp" />
+        android:layout_below="@+id/airlineText"
+        android:layout_marginTop="24dp"
+        android:hint="Date" />
 
     <EditText
         android:id="@+id/airlineText"
-        android:hint="Airline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/nameText"
         android:layout_alignLeft="@+id/nameText"
+        android:layout_alignRight="@+id/nameText"
         android:layout_alignStart="@+id/nameText"
-        android:layout_below="@+id/imageView"
-        android:layout_toLeftOf="@+id/ImageButton"
-        android:layout_toStartOf="@+id/ImageButton" />
+        android:layout_below="@+id/nameText"
+        android:layout_marginTop="11dp"
+        android:hint="Airline" />
 
 
     <EditText
-        android:textAllCaps="true"
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name"
+        android:layout_alignStart="@+id/name"
         android:layout_below="@+id/name"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="13dp"
         android:hint="Flight Number" />
 
     <TextView
@@ -83,29 +85,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/name"
-        android:layout_marginEnd="42dp"
-        android:layout_marginRight="42dp"
-         />
 
-    <Button
-        android:id="@+id/ImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/imageView"
-        android:layout_alignRight="@+id/imageView"
-        android:layout_below="@+id/imageView"
-        android:layout_marginTop="12dp"
-        android:text="Add Image"
-        android:onClick="AddFlightImage"
-
-        />
 
 
 </RelativeLayout>
