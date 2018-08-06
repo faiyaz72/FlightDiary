@@ -32,7 +32,10 @@ import java.util.Date;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_AIRLINE;
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_DATE;
 import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_NUMBER;
+import static com.example.android.flightdiary.DatabaseSQ.ID;
 import static com.example.android.flightdiary.DatabaseSQ.TABLE_FLIGHTS;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
     private ImageView mImageView;
     public String mCurrentPhotoPath;
+    private TextView flightMain;
+    private TextView dateMain;
+    private TextView airlineMain;
     private TextView showData;
 
     DatabaseSQ dbHandler;
@@ -50,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mImageView = (ImageView) findViewById(R.id.imageViewID);
 
-        showData = (TextView) findViewById(R.id.dataShowText);
+        flightMain = (TextView) findViewById(R.id.FlightNumberMain);
+        dateMain = (TextView) findViewById(R.id.dateMain);
+        airlineMain = (TextView) findViewById(R.id.AirlineMain);
 
         dbHandler = new DatabaseSQ(this);
 
@@ -71,7 +78,42 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        showData.setText(databaseToString());
+        showLastFlight();
+        //showData.setText(databaseToString());
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showLastFlight() {
+        db = dbHandler.getWritableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_FLIGHTS + ";";
+        Cursor c = db.rawQuery(query, null);
+
+        //get most recent flight that has been added
+
+        if(c.getCount() != 0) {
+            c.moveToLast();
+            airlineMain.setVisibility(View.VISIBLE);
+            dateMain.setVisibility(View.VISIBLE);
+
+
+            //get ID for the most recent flight
+
+            String flightNumber = c.getString(c.getColumnIndex(FLIGHT_NUMBER));
+            String airline = c.getString(c.getColumnIndex(FLIGHT_AIRLINE));
+            String date = c.getString(c.getColumnIndex(FLIGHT_DATE));
+
+            flightMain.setText(flightNumber);
+            airlineMain.setText(airline);
+            dateMain.setText(date);
+        } else {
+
+            flightMain.setText("Add your First Flight!");
+            airlineMain.setVisibility(View.INVISIBLE);
+            dateMain.setVisibility(View.INVISIBLE);
+
+        }
+
     }
 
     @Override
@@ -83,81 +125,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void imageButton(View view) {
-
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                Toast.makeText(this, "Error cannot find camera", Toast.LENGTH_LONG)
-                        .show();
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.flightdiary",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
-        }
-
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("Reached Here");
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//            mImageView.setImageBitmap(imageBitmap);
-            setPic();
-        }
-    }
-
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
-    private void setPic() {
-        // Get the dimensions of the View
-        int targetW = mImageView.getWidth();
-        int targetH = mImageView.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

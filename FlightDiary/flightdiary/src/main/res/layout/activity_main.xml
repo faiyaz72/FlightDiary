@@ -7,39 +7,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.flightdiary.MainActivity"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:paddingBottom="8dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="8dp"
+        android:textSize="20dp"
+        android:text="Last Flight Added"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="87dp"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/FlightNumberMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Something will be here"
-            android:id="@+id/dataShowText"
-            android:paddingLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="8dp"
+            android:paddingLeft="15dp"
+            android:textSize="18dp"
+            android:paddingTop="8dp"
+            android:text="Flight Number" />
 
-        <ImageView
-            android:id="@+id/imageViewID"
-            android:layout_width="148dp"
-            android:layout_height="135dp" />
-
-        <Button
+        <TextView
+            android:id="@+id/AirlineMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Take photo"
-            android:onClick="imageButton"
-            />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="16dp"
+            android:paddingLeft="15dp"
+            android:text="Airline" />
+
+        <TextView
+            android:id="@+id/dateMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/AirlineMain"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:paddingRight="15dp"
+            android:text="Date" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

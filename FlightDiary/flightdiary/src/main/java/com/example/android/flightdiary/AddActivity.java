@@ -86,8 +86,6 @@ public class AddActivity extends AppCompatActivity {
 
         dbHandler = new DatabaseSQ(this);
 
-        showData = (TextView) findViewById(R.id.dataShowText);
-
     }
 
     @Override
