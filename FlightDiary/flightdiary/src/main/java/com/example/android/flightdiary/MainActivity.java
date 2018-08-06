@@ -42,12 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 0;
     static final int REQUEST_TAKE_PHOTO = 1;
-    private ImageView mImageView;
-    public String mCurrentPhotoPath;
     private TextView flightMain;
     private TextView dateMain;
     private TextView airlineMain;
-    private TextView showData;
+    private TextView totalData;
+
 
     DatabaseSQ dbHandler;
     SQLiteDatabase db;
@@ -60,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         flightMain = (TextView) findViewById(R.id.FlightNumberMain);
         dateMain = (TextView) findViewById(R.id.dateMain);
         airlineMain = (TextView) findViewById(R.id.AirlineMain);
+        totalData = (TextView) findViewById(R.id.totalData);
 
         dbHandler = new DatabaseSQ(this);
 
@@ -79,7 +79,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         showLastFlight();
+        showTotalCount();
         //showData.setText(databaseToString());
+    }
+
+    private void showTotalCount() {
+        db = dbHandler.getWritableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_FLIGHTS + ";";
+        Cursor c = db.rawQuery(query, null);
+
+
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -106,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             flightMain.setText(flightNumber);
             airlineMain.setText(airline);
             dateMain.setText(date);
+            c.close();
         } else {
 
             flightMain.setText("Add your First Flight!");
