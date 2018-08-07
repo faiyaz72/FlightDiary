@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -28,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_AIRLINE;
 import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_COLUMN_ID;
@@ -125,10 +127,12 @@ public class AddActivity extends AppCompatActivity {
 
         String name = nameText.getText().toString().trim();
 
-        //noinspection StringEquality
-        if (name == "") {
-            Toast.makeText(this, "Flight Number mandatory", Toast.LENGTH_LONG).show();
-            return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Objects.equals(name, "")) {
+                Toast.makeText(this, "Flight Number mandatory", Toast.LENGTH_LONG).show();
+                return;
+            }
         }
 
         String date = dateText.getText().toString().trim();

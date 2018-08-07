@@ -61,7 +61,7 @@ public class CustomRowAdapter extends ArrayAdapter<Flight> {
             public void run(){
                 try {
                     //download the drawable
-                    final Drawable drawable = Drawable.createFromStream((InputStream) new URL("https://content.airhex.com/content/logos/airlines_"+airlineName+"_100_50_r.png").getContent(), "src");
+                    final Drawable drawable = Drawable.createFromStream((InputStream) new URL("https://daisycon.io/images/airline/?width=300&height=150&color=ffffff&iata="+airlineName).getContent(), "src");
                     //edit the view in the UI thread
                     imageView.post(new Runnable() {
                         public void run() {
