@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -22,12 +23,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static android.Manifest.permission.CAMERA;
@@ -35,6 +41,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_AIRLINE;
 import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_DATE;
 import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_NUMBER;
+import static com.example.android.flightdiary.DatabaseSQ.FLIGHT_REG;
 import static com.example.android.flightdiary.DatabaseSQ.ID;
 import static com.example.android.flightdiary.DatabaseSQ.TABLE_FLIGHTS;
 
@@ -68,10 +75,6 @@ public class MainActivity extends AppCompatActivity {
                     {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     0);
         }
-//        if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-//        }
-
 
     }
 
@@ -80,7 +83,38 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         showLastFlight();
         showTotalCount();
+        populateRows();
         //showData.setText(databaseToString());
+    }
+
+    private void populateRows() {
+
+        db = dbHandler.getWritableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_FLIGHTS + ";";
+        Cursor c = db.rawQuery(query, null);
+
+        ArrayList<Flight> flightList = new ArrayList<Flight>();
+
+        if (c.getCount() != 0) {
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                String flightNumber = c.getString(c.getColumnIndex(FLIGHT_NUMBER));
+                String date = c.getString(c.getColumnIndex(FLIGHT_DATE));
+                String reg = c.getString(c.getColumnIndex(FLIGHT_REG));
+                String airline = c.getString(c.getColumnIndex(FLIGHT_AIRLINE));
+                String type = c.getString(c.getColumnIndex(FLIGHT_REG));
+
+                flightList.add(new Flight(flightNumber, date, reg, airline, type, null));
+                c.moveToNext();
+            }
+
+
+            ListAdapter adapter = new CustomRowAdapter(this, flightList);
+            ListView flightListView = (ListView) findViewById(R.id.flightListView);
+            flightListView.setAdapter(adapter);
+        }
+
     }
 
     private void showTotalCount() {

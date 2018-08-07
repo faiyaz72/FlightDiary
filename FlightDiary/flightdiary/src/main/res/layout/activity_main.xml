@@ -77,5 +77,25 @@
         
         />
 
+    <TextView
+        android:id="@+id/titleFlights"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="8dp"
+        android:textSize="20dp"
+        android:text="Previous Flights"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/flightListView"
+        >
+
+    </ListView>
+
 
 </LinearLayout>
