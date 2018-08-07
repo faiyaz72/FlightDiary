@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateMain;
     private TextView airlineMain;
     private TextView totalData;
+    private ListView flightListView;
 
 
     DatabaseSQ dbHandler;
@@ -85,6 +87,17 @@ public class MainActivity extends AppCompatActivity {
         showTotalCount();
         populateRows();
         //showData.setText(databaseToString());
+
+        flightListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+                }
+        );
+
+
     }
 
     private void populateRows() {
@@ -94,24 +107,22 @@ public class MainActivity extends AppCompatActivity {
         String query = "SELECT * FROM " + TABLE_FLIGHTS + ";";
         Cursor c = db.rawQuery(query, null);
 
-        ArrayList<Flight> flightList = new ArrayList<Flight>();
+        ArrayList<RowFlights> flightList = new ArrayList<RowFlights>();
 
         if (c.getCount() != 0) {
             c.moveToFirst();
             while (!c.isAfterLast()) {
                 String flightNumber = c.getString(c.getColumnIndex(FLIGHT_NUMBER));
                 String date = c.getString(c.getColumnIndex(FLIGHT_DATE));
-                String reg = c.getString(c.getColumnIndex(FLIGHT_REG));
-                String airline = c.getString(c.getColumnIndex(FLIGHT_AIRLINE));
-                String type = c.getString(c.getColumnIndex(FLIGHT_REG));
+                int datebaseID = c.getInt(c.getColumnIndex(ID));
 
-                flightList.add(new Flight(flightNumber, date, reg, airline, type, null));
+                flightList.add(new RowFlights(flightNumber, date, datebaseID));
                 c.moveToNext();
             }
 
 
             ListAdapter adapter = new CustomRowAdapter(this, flightList);
-            ListView flightListView = (ListView) findViewById(R.id.flightListView);
+            flightListView = (ListView) findViewById(R.id.flightListView);
             flightListView.setAdapter(adapter);
         }
 

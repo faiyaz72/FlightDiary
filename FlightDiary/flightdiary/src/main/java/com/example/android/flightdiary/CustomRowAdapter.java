@@ -21,10 +21,10 @@ import java.util.ArrayList;
  * Created by FaiyazHuq on 2018-08-07.
  */
 
-public class CustomRowAdapter extends ArrayAdapter<Flight> {
+public class CustomRowAdapter extends ArrayAdapter<RowFlights> {
 
 
-    public CustomRowAdapter(@NonNull Context context, ArrayList<Flight> flights) {
+    public CustomRowAdapter(@NonNull Context context, ArrayList<RowFlights> flights) {
         super(context, R.layout.custom_row, flights);
     }
 
@@ -35,7 +35,7 @@ public class CustomRowAdapter extends ArrayAdapter<Flight> {
         LayoutInflater inflator = LayoutInflater.from(getContext());
         View customView = inflator.inflate(R.layout.custom_row, parent, false);
 
-        Flight getFlight = getItem(position);
+        RowFlights getFlight = getItem(position);
         TextView flightNumber = (TextView) customView.findViewById(R.id.rowID);
         String airlineLogo = getFlight.getFlightNumber().substring(0, 2);
 
