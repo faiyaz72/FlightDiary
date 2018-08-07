@@ -124,6 +124,13 @@ public class AddActivity extends AppCompatActivity {
     public void AddFlight(MenuItem item) {
 
         String name = nameText.getText().toString().trim();
+
+        //noinspection StringEquality
+        if (name == "") {
+            Toast.makeText(this, "Flight Number mandatory", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         String date = dateText.getText().toString().trim();
         String airline = airlineText.getText().toString().trim();
         String type = typeText.getText().toString().trim();

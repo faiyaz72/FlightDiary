@@ -84,11 +84,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showTotalCount() {
+
+
         db = dbHandler.getWritableDatabase();
 
         String query = "SELECT * FROM " + TABLE_FLIGHTS + ";";
         Cursor c = db.rawQuery(query, null);
 
+        int total = c.getCount();
+
+        String message = "Total flights in Database: " + total;
+
+        totalData.setText(message);
 
 
     }
