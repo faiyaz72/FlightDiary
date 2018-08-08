@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     0);
         }
 
+
     }
 
     @Override
@@ -86,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
         showLastFlight();
         showTotalCount();
         populateRows();
-        //showData.setText(databaseToString());
-
         flightListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -104,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        //showData.setText(databaseToString());
+
+
 
 
     }
@@ -127,12 +129,10 @@ public class MainActivity extends AppCompatActivity {
                 flightList.add(new RowFlights(flightNumber, date, datebaseID));
                 c.moveToNext();
             }
-
-
-            ListAdapter adapter = new CustomRowAdapter(this, flightList);
-            flightListView = (ListView) findViewById(R.id.flightListView);
-            flightListView.setAdapter(adapter);
         }
+        ListAdapter adapter = new CustomRowAdapter(this, flightList);
+        flightListView = (ListView) findViewById(R.id.flightListView);
+        flightListView.setAdapter(adapter);
 
     }
 

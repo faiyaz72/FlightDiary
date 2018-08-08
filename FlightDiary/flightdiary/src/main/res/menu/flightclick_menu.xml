@@ -8,6 +8,8 @@
     <item
         android:icon="@drawable/ic_modify"
         app:showAsAction="ifRoom"
-        android:title="ModifyFlightClick">
+        android:title="ModifyFlightClick"
+        android:onClick="modifyFlight"
+        >
     </item>
 </menu>
