@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
 
 
@@ -9,79 +10,91 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.flightdiary.AddActivity">
 
-    <EditText
-        android:id="@+id/regText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/typeText"
-        android:layout_alignLeft="@+id/typeText"
-        android:layout_alignRight="@+id/typeText"
-        android:layout_alignStart="@+id/typeText"
-        android:layout_below="@+id/typeText"
-        android:layout_marginTop="21dp"
-        android:hint="Registration" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/typeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/dateText"
-        android:layout_alignLeft="@+id/dateText"
-        android:layout_alignRight="@+id/dateText"
-        android:layout_alignStart="@+id/dateText"
-        android:layout_below="@+id/dateText"
-        android:layout_marginTop="23dp"
-        android:hint="Type" />
+        <EditText
+            android:id="@+id/regText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/typeText"
+            android:layout_alignLeft="@+id/typeText"
+            android:layout_alignRight="@+id/typeText"
+            android:layout_alignStart="@+id/typeText"
+            android:layout_below="@+id/typeText"
+            android:layout_marginTop="24dp"
+            android:hint="Registration" />
 
-    <EditText
-        android:id="@+id/dateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/airlineText"
-        android:layout_alignLeft="@+id/airlineText"
-        android:layout_alignRight="@+id/airlineText"
-        android:layout_alignStart="@+id/airlineText"
-        android:layout_below="@+id/airlineText"
-        android:layout_marginTop="24dp"
-        android:hint="Date" />
+        <EditText
+            android:id="@+id/typeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/dateText"
+            android:layout_alignLeft="@+id/dateText"
+            android:layout_alignRight="@+id/dateText"
+            android:layout_alignStart="@+id/dateText"
+            android:layout_below="@+id/dateText"
+            android:layout_marginTop="24dp"
+            android:hint="Type" />
 
-    <EditText
-        android:id="@+id/airlineText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/nameText"
-        android:layout_alignLeft="@+id/nameText"
-        android:layout_alignRight="@+id/nameText"
-        android:layout_alignStart="@+id/nameText"
-        android:layout_below="@+id/nameText"
-        android:layout_marginTop="11dp"
-        android:hint="Airline" />
+        <EditText
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/airlineText"
+            android:layout_alignLeft="@+id/airlineText"
+            android:layout_alignRight="@+id/airlineText"
+            android:layout_alignStart="@+id/airlineText"
+            android:layout_below="@+id/airlineText"
+            android:layout_marginTop="24dp"
+            android:hint="Date" />
+
+        <EditText
+            android:id="@+id/airlineText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/nameText"
+            android:layout_alignLeft="@+id/nameText"
+            android:layout_alignRight="@+id/nameText"
+            android:layout_alignStart="@+id/nameText"
+            android:layout_below="@+id/nameText"
+            android:layout_marginTop="24dp"
+            android:hint="Airline" />
 
 
-    <EditText
-        android:id="@+id/nameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/name"
-        android:layout_alignStart="@+id/name"
-        android:layout_below="@+id/name"
-        android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="13dp"
-        android:hint="Flight Number" />
+        <EditText
+            android:id="@+id/nameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/name"
+            android:layout_alignStart="@+id/name"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="13dp"
+            android:hint="Flight Number" />
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
-        android:text="Flight Details"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:text="Flight Details"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>
+

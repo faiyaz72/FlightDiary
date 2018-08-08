@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +42,7 @@ public class FlightClickActivity extends AppCompatActivity {
     private ImageView flightImage;
     private ImageView logoImage;
     private Button airframe;
+    String reg;
     DatabaseSQ dbHandler;
     SQLiteDatabase db;
 
@@ -98,7 +101,7 @@ public class FlightClickActivity extends AppCompatActivity {
 
         String number = c.getString(c.getColumnIndex(FLIGHT_NUMBER));
         String date = c.getString(c.getColumnIndex(FLIGHT_DATE));
-        String reg = c.getString(c.getColumnIndex(FLIGHT_REG));
+        reg = c.getString(c.getColumnIndex(FLIGHT_REG));
         String type = c.getString(c.getColumnIndex(FLIGHT_TYPE));
         String imageURL = c.getString(c.getColumnIndex(FLIGHT_IMAGE_PATH));
 
@@ -164,5 +167,22 @@ public class FlightClickActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    public void getAirframe(View view) {
+
+
+        String web = "https://flightaware.com/live/flight/";
+
+
+        Uri webpage = Uri.parse(web+reg);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
+
     }
 }

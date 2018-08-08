@@ -43,8 +43,16 @@
             android:label="Add" />
         <activity
             android:name=".ImageAddActivity"
-            android:label="Add Image"></activity>
-        <activity android:name=".FlightClickActivity"></activity>
+            android:label="Add Image">
+
+        </activity>
+        <activity android:name=".FlightClickActivity"
+            android:label="Flight Details"
+            >
+
+
+
+        </activity>
     </application>
 
 </manifest>
