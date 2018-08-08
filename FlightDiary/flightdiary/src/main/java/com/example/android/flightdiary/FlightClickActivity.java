@@ -1,5 +1,7 @@
 package com.example.android.flightdiary;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ShareCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -183,6 +187,37 @@ public class FlightClickActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+
+    }
+
+    public void deleteFlight(MenuItem item) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this flight?");
+
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                db = dbHandler.getWritableDatabase();
+
+                String query = "DELETE FROM " + TABLE_FLIGHTS + " WHERE " + ID + " == " + databaseID + ";";
+                db.execSQL(query);
+
+                Context start = FlightClickActivity.this;
+                Class destination = MainActivity.class;
+                Intent intent = new Intent(start, destination);
+                startActivity(intent);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                return;
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.setTitle("Delete");
+        alert.show();
 
     }
 }

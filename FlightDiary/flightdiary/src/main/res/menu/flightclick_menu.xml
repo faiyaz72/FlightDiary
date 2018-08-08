@@ -12,4 +12,11 @@
         android:onClick="modifyFlight"
         >
     </item>
+
+    <item
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="ifRoom"
+        android:title="Delete"
+        android:onClick="deleteFlight">
+        </item>
 </menu>
