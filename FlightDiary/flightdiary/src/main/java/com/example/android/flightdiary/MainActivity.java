@@ -92,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        RowFlights flightClicked = (RowFlights) parent.getItemAtPosition(position);
+                        int databaseID = flightClicked.getDatabaseID();
+                        Context context = MainActivity.this;
+                        Class destination = FlightClickActivity.class;
+
+                        Intent intent = new Intent(context, destination);
+                        intent.putExtra(Intent.EXTRA_TEXT, databaseID);
+                        startActivity(intent);
 
                     }
                 }

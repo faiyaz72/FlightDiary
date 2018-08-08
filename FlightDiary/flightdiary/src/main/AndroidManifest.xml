@@ -40,11 +40,11 @@
 
         <activity
             android:name=".AddActivity"
-            android:label="Add"></activity>
-        <activity android:name=".ImageAddActivity"
-            android:label="Add Image"
-            >
-        </activity>
+            android:label="Add" />
+        <activity
+            android:name=".ImageAddActivity"
+            android:label="Add Image"></activity>
+        <activity android:name=".FlightClickActivity"></activity>
     </application>
 
 </manifest>
